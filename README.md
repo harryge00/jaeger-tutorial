@@ -55,6 +55,13 @@ spec:
 EOF
 ```
 
+创建完成后能在`tutorial` namespace下看到pod：
+```
+# kubectl get po -n tutorial                                         
+NAME                      READY   STATUS    RESTARTS   AGE
+webapp-6f76647fbc-88jhc   1/1     Running   0          40m
+```
+
 ### 访问jaegertutorial应用
 可以通过ingress暴露服务，也可以执行 `kubectl proxy` 代理到本地，然后访问应用 http://localhost:8001/api/v1/namespaces/tutorial/services/webapp:web/proxy/swagger-ui.html#/tutorial-controller
 ![webapp ui](./swagger-ui.png)
@@ -86,7 +93,7 @@ curl --location --request DELETE 'http://localhost:8001/api/v1/namespaces/tutori
 
 
 ## 构建镜像
-构建java应用：
+本应用基于jaeger官方的客户端：https://github.com/jaegertracing/jaeger-client-java 。构建java应用：
 ```
 gradle build copyLocal
 gradele build copyDeps
