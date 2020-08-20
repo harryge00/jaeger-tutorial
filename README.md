@@ -59,3 +59,40 @@ EOF
 可以通过ingress暴露服务，也可以执行 `kubectl proxy` 代理到本地，然后访问应用 http://localhost:8001/api/v1/namespaces/tutorial/services/webapp:web/proxy/swagger-ui.html#/tutorial-controller
 ![webapp ui](./swagger-ui.png)
 
+a) 访问employee接口：
+http://localhost:8001/api/v1/namespaces/tutorial/services/webapp:web/proxy/api/tutorial/1.0/employees
+
+b) 创建 employee 接口：
+```
+curl --location --request POST 'http://localhost:8001/api/v1/namespaces/tutorial/services/webapp:web/proxy/api/tutorial/1.0/employees' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "email": "zhangsan@qq.com",
+  "employeeId": 5,
+  "firstName": "san",
+  "lastName": "zhang",
+  "phone": "123-45678"
+}'
+```
+
+c) 删除 employee 接口：
+```
+curl --location --request DELETE 'http://localhost:8001/api/v1/namespaces/tutorial/services/webapp:web/proxy/api/tutorial/1.0/employees/5'
+```
+
+## 访问 jaeger
+通过 `ops/portal/jaeger` 可以访问 jaeger
+![jaeger ui](./jaeger-ui.png)
+
+
+## 构建镜像
+构建java应用：
+```
+gradle build copyLocal
+gradele build copyDeps
+```
+打包镜像、推送镜像
+```
+cd docker
+./build_save.sh <version>
+```
