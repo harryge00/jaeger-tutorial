@@ -15,6 +15,6 @@ fi
 echo "Build and Push jaegertutorial:"${release}" to Docker repo"
 
 docker build -t jaegertutorial:${release} .
-docker tag jaegertutorial:${release} ericgoebelbecker/jaegertutorial:${release}
-docker push ericgoebelbecker/jaegertutorial:${release}
+docker tag jaegertutorial:${release} hyge/jaegertutorial:${release}
+docker push hyge/jaegertutorial:${release}
 
